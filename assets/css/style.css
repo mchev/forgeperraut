@@ -13,10 +13,7 @@
 /* 4. Layout et grilles */
 @import url('./layout.css');
 
-/* 5. Styles PWA */
-@import url('./pwa.css');
-
-/* 6. Utilitaires et animations */
+/* 5. Utilitaires et animations */
 @import url('./utilities.css');
 
 /* ===== COMMENTAIRES D'ORGANISATION ===== */
@@ -27,8 +24,7 @@ STRUCTURE DES FICHIERS CSS :
 2. reset.css         - Reset CSS et normalisation
 3. components.css    - Composants réutilisables (boutons, cartes, etc.)
 4. layout.css        - Layout et grilles
-5. pwa.css          - Styles spécifiques PWA
-7. utilities.css    - Classes utilitaires et animations
+5. utilities.css    - Classes utilitaires et animations
 
 AVANTAGES DE CETTE ORGANISATION :
 - Séparation des responsabilités
