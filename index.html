@@ -34,6 +34,20 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="images/metallerieforgeperraut.svg">
     
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Forge Perraut">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="images/pwa-icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/pwa-icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/pwa-icon-192.png">
+    
     <!-- Open Graph -->
     <meta property="og:title" content="Métallerie Forge Perraut - Forge et Métallerie d'Art à Cormatin">
     <meta property="og:description" content="Atelier de forge et métallerie d'art à Cormatin (71). Escaliers, garde-corps, rampes, pergolas, terrasses, mobilier, portes et portails sur mesure. Créations uniques en fer forgé.">
@@ -270,11 +284,6 @@
                         <span class="gallery__total-images">(<span id="gallery-total-images">0</span> images)</span>
                     </div>
                     
-                    <!-- Indicateur de swipe pour mobile -->
-                    <div class="gallery__swipe-hint" id="gallery-swipe-hint">
-                        <span>👆 Glissez horizontalement pour naviguer</span>
-                    </div>
-                    
                     <div class="gallery__page-indicators" id="gallery-page-dots" role="tablist" aria-label="Navigation par pages de la galerie">
                         <!-- Les indicateurs de page seront générés par JavaScript -->
                     </div>
@@ -474,5 +483,6 @@
 
     <!-- Scripts -->
     <script src="assets/js/main.js" type="module"></script>
+    <script src="assets/js/pwa.js"></script>
 </body>
 </html>
