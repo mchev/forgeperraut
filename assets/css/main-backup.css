@@ -1971,6 +1971,17 @@ a:focus-visible {
     flex-direction: column;
     align-items: stretch;
   }
+  
+  .contact__text strong {
+    font-size: var(--font-size-base);
+  }
+  
+  .contact__text address,
+  .zone-text,
+  .service-text,
+  .practical-text {
+    font-size: var(--font-size-base);
+  }
 }
 
 @media (max-width: 480px) {
@@ -2008,18 +2019,10 @@ a:focus-visible {
     font-size: var(--font-size-sm);
   }
   
-  .instagram-link--small {
-    padding: var(--spacing-xs);
-    gap: var(--spacing-xs);
-  }
-  
-  .instagram-logo--small {
-    width: 14px;
-    height: 14px;
-  }
-  
-  .instagram-text--small {
-    font-size: var(--font-size-xs);
+  .contact__icon {
+    font-size: var(--font-size-base);
+    width: 32px;
+    height: 32px;
   }
 }
 

@@ -1,0 +1,40 @@
+/* ===== FICHIER CSS PRINCIPAL - FORGE PERRAUT ===== */
+/* Ce fichier importe tous les autres fichiers CSS organisés */
+
+/* 1. Variables et design tokens */
+@import url('./variables.css');
+
+/* 2. Reset et normalisation */
+@import url('./reset.css');
+
+/* 3. Composants réutilisables */
+@import url('./components.css');
+
+/* 4. Layout et grilles */
+@import url('./layout.css');
+
+/* 5. Styles PWA */
+@import url('./pwa.css');
+
+/* 6. Utilitaires et animations */
+@import url('./utilities.css');
+
+/* ===== COMMENTAIRES D'ORGANISATION ===== */
+/*
+STRUCTURE DES FICHIERS CSS :
+
+1. variables.css     - Variables CSS et design tokens
+2. reset.css         - Reset CSS et normalisation
+3. components.css    - Composants réutilisables (boutons, cartes, etc.)
+4. layout.css        - Layout et grilles
+5. pwa.css          - Styles spécifiques PWA
+7. utilities.css    - Classes utilitaires et animations
+
+AVANTAGES DE CETTE ORGANISATION :
+- Séparation des responsabilités
+- Maintenance plus facile
+- Réutilisation des composants
+- Développement en équipe simplifié
+- Cache plus efficace
+- Débogage simplifié
+*/
