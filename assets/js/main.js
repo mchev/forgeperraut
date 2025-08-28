@@ -240,6 +240,12 @@ class GalleryManager {
     this.renderGallery();
     this.updateEmptyState();
     this.updateFilterButtons(category);
+
+    // Sur mobile : fermer le menu et défiler vers la galerie
+    if (this.isMobile()) {
+      this.closeMobileMenu();
+      this.scrollToGallery();
+    }
   }
 
   updateFilterButtons(activeCategory) {
@@ -598,6 +604,39 @@ class GalleryManager {
     setTimeout(() => {
       gallery.classList.remove(feedbackClass);
     }, 300);
+  }
+
+  closeMobileMenu() {
+    const navToggle = document.querySelector('.nav__toggle');
+    const navMenu = document.querySelector('.nav__menu');
+    
+    if (navToggle && navMenu) {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navMenu.setAttribute('data-visible', 'false');
+    }
+  }
+
+  scrollToGallery() {
+    const gallery = document.getElementById('gallery');
+    if (gallery) {
+      // Attendre un peu que le menu se ferme avant de défiler
+      setTimeout(() => {
+        // Ajouter une classe temporaire pour l'animation
+        gallery.classList.add('filter-applied');
+        
+        // Défiler vers la galerie
+        gallery.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start',
+          inline: 'nearest'
+        });
+
+        // Retirer la classe après l'animation
+        setTimeout(() => {
+          gallery.classList.remove('filter-applied');
+        }, 1000);
+      }, 150);
+    }
   }
 }
 
