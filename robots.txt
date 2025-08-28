@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://forgeperraut.fr/sitemap.xml
+
+# Délai entre les requêtes (en secondes)
+Crawl-delay: 1
+
+# Permettre l'indexation des images
+Allow: /images/
+
+# Permettre l'indexation des ressources CSS et JS
+Allow: /assets/css/
+Allow: /assets/js/
+
+# Empêcher l'indexation des fichiers de développement
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /*.log
+Disallow: /*.tmp
