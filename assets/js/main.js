@@ -1,6 +1,6 @@
-// ===== JAVASCRIPT MODERNE POUR MÉTALLERIE FORGE PERRAUT =====
+// JavaScript pour Métallerie Forge Perraut
 
-// ===== DONNÉES DE LA GALERIE =====
+// Données de la galerie
 const galleryData = [
   { id: 1, src: 'images/small00116.jpg', full: 'images/full00116.jpg', category: 'mobilier', alt: 'Mobilier métallique sur mesure' },
   { id: 2, src: 'images/small00115.jpg', full: 'images/full00115.jpg', category: 'mobilier', alt: 'Création mobilier unique' },
@@ -118,7 +118,7 @@ const galleryData = [
   { id: 114, src: 'images/small00001.jpg', full: 'images/full00001.jpg', category: 'rampe', alt: 'Rampe d\'accès' }
 ];
 
-// ===== CLASSES UTILITAIRES =====
+// Gestionnaire de galerie
 class GalleryManager {
   constructor() {
     this.currentFilter = 'all';
@@ -472,7 +472,7 @@ class GalleryManager {
   }
 }
 
-// ===== GESTIONNAIRE DE PERFORMANCE =====
+// Gestionnaire de performance
 class PerformanceManager {
   constructor() {
     this.init();
@@ -528,7 +528,7 @@ class PerformanceManager {
   }
 }
 
-// ===== GESTIONNAIRE D'ACCESSIBILITÉ =====
+// Gestionnaire d'accessibilité
 class AccessibilityManager {
   constructor() {
     this.init();
@@ -599,7 +599,7 @@ class AccessibilityManager {
   }
 }
 
-// ===== GESTIONNAIRE D'ANIMATIONS =====
+// Gestionnaire d'animations
 class AnimationManager {
   constructor() {
     this.animatedElements = [];
@@ -802,7 +802,7 @@ class AnimationManager {
   }
 }
 
-// ===== GESTIONNAIRE DE LA BULLE D'INFORMATION =====
+// Gestionnaire de la bulle d'information
 class InfoBubbleManager {
   constructor() {
     this.bubble = document.getElementById('info-bubble');
@@ -941,33 +941,17 @@ class InfoBubbleManager {
   }
 }
 
-// ===== INITIALISATION =====
+// Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialiser les gestionnaires
   new GalleryManager();
   new PerformanceManager();
   new AccessibilityManager();
   new AnimationManager();
   new InfoBubbleManager();
 
-  // Ajouter des classes d'animation au chargement
   document.body.classList.add('loaded');
-
-  // Console log pour le développement
-  console.log('🚀 Site Métallerie Forge Perraut initialisé avec succès !');
-  console.log('📱 Design responsive et moderne');
-  console.log('♿ Accessibilité optimisée');
-  console.log('⚡ Performance optimisée');
-  console.log('✨ Animations et transitions activées');
 });
 
-// ===== GESTIONNAIRE D'ERREURS =====
-window.addEventListener('error', (e) => {
-  console.error('Erreur JavaScript:', e.error);
-});
-
-window.addEventListener('unhandledrejection', (e) => {
-  console.error('Promesse rejetée non gérée:', e.reason);
-});
+// Gestionnaire d'erreurs silencieux pour la production
 
 
