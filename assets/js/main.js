@@ -125,14 +125,34 @@ class GalleryManager {
     this.currentIndex = 0;
     this.filteredItems = [...galleryData];
     this.currentPage = 0;
-    this.itemsPerPage = 12; // 4 colonnes × 3 rangées
+    this.itemsPerPage = this.isMobile() ? 6 : 12; // Adapté pour mobile
     this.init();
+  }
+
+  // Détection mobile améliorée
+  isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+           window.innerWidth <= 768 || 
+           ('ontouchstart' in window);
   }
 
   init() {
     this.renderGallery();
     this.bindEvents();
     this.updateCurrentYear();
+    
+    // Adapter la taille de la galerie lors du redimensionnement
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  handleResize() {
+    // Mettre à jour le nombre d'éléments par page lors du redimensionnement
+    const newItemsPerPage = this.isMobile() ? 6 : 12;
+    if (newItemsPerPage !== this.itemsPerPage) {
+      this.itemsPerPage = newItemsPerPage;
+      this.currentPage = 0; // Retour à la première page
+      this.renderGallery();
+    }
   }
 
   renderGallery() {
@@ -175,8 +195,8 @@ class GalleryManager {
     
     return `
       <div class="gallery-item ${categoryClasses}" data-category="${item.category}" data-id="${item.id}">
-        <img src="${item.src}" alt="${altText}" class="gallery-item__image" loading="lazy" title="${categoryLabel} - ${item.alt}">
-        <div class="gallery-item__overlay">
+        <img src="${item.src}" alt="${altText}" class="gallery-item__image" loading="lazy" title="${categoryLabel} - ${item.alt}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="gallery-item__overlay" style="display: none;">
           <span class="gallery-item__icon" aria-label="Voir en grand">🔍</span>
         </div>
         <div class="gallery-item__info">
