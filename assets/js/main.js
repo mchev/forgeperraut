@@ -268,6 +268,7 @@ class GalleryManager {
     const totalPagesSpan = document.getElementById('gallery-page-total');
     const totalImagesSpan = document.getElementById('gallery-total-images');
     const pageDots = document.getElementById('gallery-page-dots');
+    const swipeHint = document.getElementById('gallery-swipe-hint');
 
     if (!controls || !currentPageSpan || !totalPagesSpan || !totalImagesSpan || !pageDots) return;
 
@@ -276,6 +277,18 @@ class GalleryManager {
     // Afficher/masquer les contrôles selon le nombre de pages
     if (totalPages > 1) {
       controls.hidden = false;
+      
+      // Afficher l'indicateur de swipe sur mobile
+      if (this.isMobile() && swipeHint) {
+        swipeHint.classList.add('show');
+        
+        // Masquer l'indicateur après 5 secondes
+        setTimeout(() => {
+          if (swipeHint) {
+            swipeHint.classList.remove('show');
+          }
+        }, 5000);
+      }
     } else {
       controls.hidden = true;
       return;
@@ -349,6 +362,11 @@ class GalleryManager {
         }
       }
     });
+
+    // Ajouter le swipe pour la pagination sur mobile
+    if (this.isMobile()) {
+      this.bindPaginationSwipe();
+    }
   }
 
   openLightbox(id) {
@@ -489,6 +507,97 @@ class GalleryManager {
     if (gallery) {
       gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  // Méthodes pour le swipe mobile
+  bindPaginationSwipe() {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+    let swipeDirection = '';
+
+    // Démarrer le swipe
+    gallery.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = false;
+      swipeDirection = '';
+    }, { passive: true });
+
+    // Détecter le mouvement du swipe
+    gallery.addEventListener('touchmove', (e) => {
+      if (!isSwiping) {
+        const deltaX = Math.abs(e.touches[0].clientX - startX);
+        const deltaY = Math.abs(e.touches[0].clientY - startY);
+        
+        // Détecter un swipe horizontal ou vertical
+        if (deltaX > 10 || deltaY > 10) {
+          isSwiping = true;
+          swipeDirection = deltaX > deltaY ? 'horizontal' : 'vertical';
+        }
+      }
+    }, { passive: true });
+
+    // Traiter la fin du swipe
+    gallery.addEventListener('touchend', (e) => {
+      if (!isSwiping || swipeDirection !== 'horizontal') return;
+
+      const endX = e.changedTouches[0].clientX;
+      const deltaX = endX - startX;
+      const minSwipeDistance = 50; // Distance minimale pour déclencher le swipe
+
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          // Swipe vers la droite = page précédente
+          this.swipeToPage('prev');
+        } else {
+          // Swipe vers la gauche = page suivante
+          this.swipeToPage('next');
+        }
+      }
+
+      // Reset
+      isSwiping = false;
+      swipeDirection = '';
+    }, { passive: true });
+  }
+
+  swipeToPage(direction) {
+    const totalPages = Math.ceil(this.filteredItems.length / this.itemsPerPage);
+    
+    if (totalPages <= 1) return; // Pas de pagination nécessaire
+
+    let newPage = this.currentPage;
+
+    if (direction === 'next' && this.currentPage < totalPages - 1) {
+      newPage = this.currentPage + 1;
+    } else if (direction === 'prev' && this.currentPage > 0) {
+      newPage = this.currentPage - 1;
+    }
+
+    if (newPage !== this.currentPage) {
+      this.goToPage(newPage);
+      
+      // Feedback visuel du swipe
+      this.showSwipeFeedback(direction);
+    }
+  }
+
+    showSwipeFeedback(direction) {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    // Ajouter une classe temporaire pour l'animation
+    const feedbackClass = direction === 'next' ? 'swipe-left' : 'swipe-right';
+    gallery.classList.add(feedbackClass);
+
+    // Supprimer la classe après l'animation
+    setTimeout(() => {
+      gallery.classList.remove(feedbackClass);
+    }, 300);
   }
 }
 

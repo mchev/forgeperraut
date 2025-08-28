@@ -1255,6 +1255,171 @@ a:focus-visible {
   .gallery-item:active .gallery-item__overlay {
     opacity: 0.3;
   }
+
+  /* Indicateurs visuels pour le swipe */
+  .gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .gallery.swipe-left::before {
+    opacity: 1;
+    animation: swipeIndicatorLeft 0.3s ease;
+  }
+
+  .gallery.swipe-right::before {
+    opacity: 1;
+    animation: swipeIndicatorRight 0.3s ease;
+  }
+
+  /* Amélioration des contrôles de pagination sur mobile */
+  .gallery__controls {
+    position: relative;
+  }
+
+  .gallery__page-info {
+    position: relative;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  /* Indicateur de swipe */
+  .gallery__swipe-hint {
+    display: none;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-gray-100);
+    border-radius: var(--border-radius-md);
+    border: 1px dashed var(--color-gray-300);
+  }
+
+  .gallery__swipe-hint.show {
+    display: block;
+    animation: fadeInUp 0.3s ease;
+  }
+
+  /* Amélioration des indicateurs de page */
+  .gallery__page-indicators {
+    position: relative;
+    padding: var(--spacing-xs);
+    background: var(--color-white);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .gallery__page-dot {
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .gallery__page-dot.active {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+
+  .gallery__page-dot:active {
+    transform: scale(0.9);
+  }
+}
+
+/* Animations pour le swipe */
+@keyframes swipeIndicatorLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes swipeIndicatorRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Amélioration de la réactivité tactile */
+@media (max-width: 768px) {
+  .gallery {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(44, 62, 80, 0.02) 20%, 
+      rgba(44, 62, 80, 0.02) 80%, 
+      transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .gallery.swipe-left::after {
+    opacity: 1;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(44, 62, 80, 0.05) 20%, 
+      rgba(44, 62, 80, 0.02) 80%, 
+      transparent 100%);
+  }
+
+  .gallery.swipe-right::after {
+    opacity: 1;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(44, 62, 80, 0.02) 20%, 
+      rgba(44, 62, 80, 0.05) 80%, 
+      transparent 100%);
+  }
 }
 
 .about__content {
