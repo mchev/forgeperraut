@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Métallerie Forge Perraut - Atelier de forge et métallerie d'art à Cormatin (71). Escaliers, garde-corps, rampes, pergolas, terrasses, mobilier, portes et portails sur mesure. Créations uniques en fer forgé et métal. Devis gratuit.">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
     <meta name="keywords" content="métallerie, forge, fer forgé, escalier métallique, garde-corps, rampe d'escalier, pergola métallique, terrasse métallique, mobilier de jardin, porte métallique, portail, Cormatin, Saône-et-Loire, Bourgogne, artisanat, création sur mesure">
     <meta name="author" content="Forge Perraut - Métallerie d'art">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -15,10 +19,6 @@
     
     <title>Métallerie Forge Perraut - Forge et Métallerie d'Art à Cormatin (71) | Escaliers, Garde-corps, Pergolas sur Mesure</title>
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="assets/css/main.css" as="style">
-    <link rel="preload" href="assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
-    
     <!-- SEO et Indexation -->
     <link rel="canonical" href="https://forgeperraut.fr/">
     <link rel="alternate" hreflang="fr" href="https://forgeperraut.fr/">
@@ -29,7 +29,8 @@
     
     <!-- Bunny Fonts - Polices professionnelles pour métallerie -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|playfair-display:400,500,600,700" rel="stylesheet" />
+    <link rel="dns-prefetch" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|playfair-display:400,500,600,700&display=swap" rel="stylesheet" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="images/metallerieforgeperraut.svg">
@@ -264,7 +265,7 @@
         <!-- Gallery Section -->
         <section class="gallery-section" aria-labelledby="gallery-title" itemscope itemtype="https://schema.org/ImageGallery">
             <div class="container">
-                <header class="section-header animate-on-scroll">
+                <header class="section-header">
                     <h2 id="gallery-title" class="section-title">Nos Réalisations en Métallerie et Fer Forgé</h2>
                     <p class="section-subtitle">Découvrez la qualité de notre travail d'artisan forgeron à travers nos créations uniques en escaliers, garde-corps, rampes, pergolas, terrasses, mobilier, portes et portails métalliques sur mesure</p>
                 </header>
@@ -295,12 +296,12 @@
         <section class="cta-section" aria-labelledby="cta-title" itemscope itemtype="https://schema.org/Service">
             <div class="container">
                 <div class="cta__content">
-                    <header class="section-header animate-on-scroll">
+                    <header class="section-header">
                         <h2 id="cta-title" class="section-title">Projet de Métallerie ou Fer Forgé sur Mesure ?</h2>
                         <p class="section-subtitle">Nous vous accompagnons dans la réalisation de votre projet d'escalier, garde-corps, pergola, terrasse ou mobilier métallique</p>
                     </header>
                     
-                    <div class="cta__description animate-on-scroll" role="contentinfo" aria-labelledby="cta-description-title">
+                    <div class="cta__description" role="contentinfo" aria-labelledby="cta-description-title">
                         <h3 id="cta-description-title" class="cta__description-title">Devis Gratuit et Personnalisé</h3>
                         <p>Pour un devis personnalisé et gratuit, contactez-nous avec les détails de votre projet. Nous étudions chaque demande avec attention pour vous proposer la solution la plus adaptée à vos besoins et à votre budget.</p>
                     </div>
@@ -339,7 +340,7 @@
         <section id="contact" class="contact-section" aria-labelledby="contact-title" itemscope itemtype="https://schema.org/LocalBusiness">
             <div class="container">
                 <div class="contact__content">
-                    <header class="section-header animate-on-scroll">
+                    <header class="section-header">
                         <h2 id="contact-title" class="section-title">Contact et Informations</h2>
                         <p class="section-subtitle">Prenez rendez-vous pour visiter notre atelier ou discuter de votre projet</p>
                     </header>
@@ -482,7 +483,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/main.js" type="module"></script>
-    <script src="assets/js/pwa.js"></script>
+    <script src="assets/js/main.js" type="module" defer></script>
+    <script src="assets/js/pwa.js" defer></script>
 </body>
 </html>

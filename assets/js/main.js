@@ -1,5 +1,13 @@
 // JavaScript pour Métallerie Forge Perraut
 
+// Configuration de performance pour améliorer le LCP
+const PERFORMANCE_CONFIG = {
+  // Nombre d'images à charger immédiatement (above-the-fold)
+  initialLoadCount: 6,
+  // Délai avant de charger le reste des images
+  lazyLoadDelay: 100
+};
+
 // Données de la galerie
 const galleryData = [
   { id: 1, src: 'images/small00116.jpg', full: 'images/full00116.jpg', category: 'mobilier', alt: 'Mobilier métallique sur mesure' },
@@ -137,12 +145,28 @@ class GalleryManager {
   }
 
   init() {
+    // Charger d'abord les images above-the-fold pour améliorer le LCP
     this.renderGallery();
+    
+    // Charger le reste des images progressivement
+    setTimeout(() => {
+      this.preloadRemainingImages();
+    }, PERFORMANCE_CONFIG.lazyLoadDelay);
+    
     this.bindEvents();
     this.updateCurrentYear();
     
     // Adapter la taille de la galerie lors du redimensionnement
     window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  // Précharger les images restantes pour améliorer l'expérience utilisateur
+  preloadRemainingImages() {
+    const remainingItems = this.filteredItems.slice(PERFORMANCE_CONFIG.initialLoadCount);
+    remainingItems.forEach(item => {
+      const img = new Image();
+      img.src = item.src;
+    });
   }
 
   handleResize() {
@@ -638,6 +662,44 @@ class GalleryManager {
       }, 150);
     }
   }
+
+  // Charger les images initiales (above-the-fold) pour améliorer le LCP
+  loadInitialImages() {
+    const initialItems = this.filteredItems.slice(0, PERFORMANCE_CONFIG.initialLoadCount);
+    this.renderGalleryItems(initialItems, true);
+    
+    // Afficher un indicateur de chargement
+    this.showLoadingIndicator();
+  }
+
+  // Charger le reste des images progressivement
+  loadRemainingImages() {
+    const remainingItems = this.filteredItems.slice(PERFORMANCE_CONFIG.initialLoadCount);
+    this.loadImagesInBatches(remainingItems);
+  }
+
+  // Afficher l'indicateur de chargement
+  showLoadingIndicator() {
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.className = 'loading-indicator';
+    loadingIndicator.innerHTML = `
+      <div class="loading-spinner"></div>
+      <p>Chargement des réalisations...</p>
+    `;
+    
+    const gallery = document.getElementById('gallery');
+    if (gallery && gallery.nextElementSibling) {
+      gallery.parentNode.insertBefore(loadingIndicator, gallery.nextElementSibling);
+    }
+  }
+
+  // Masquer l'indicateur de chargement
+  hideLoadingIndicator() {
+    const loadingIndicator = document.querySelector('.loading-indicator');
+    if (loadingIndicator) {
+      loadingIndicator.remove();
+    }
+  }
 }
 
 // Gestionnaire de performance
@@ -776,168 +838,7 @@ class AnimationManager {
   }
 
   init() {
-    this.setupScrollAnimations();
-    this.setupLoadAnimations();
-    this.setupHoverEffects();
     this.setupProgressBar();
-  }
-
-  setupScrollAnimations() {
-    // Créer l'Intersection Observer pour les animations au scroll
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          
-          // Ajouter un délai pour les éléments enfants
-          const children = entry.target.querySelectorAll('.animate-on-scroll');
-          children.forEach((child, index) => {
-            setTimeout(() => {
-              child.classList.add('animate-in');
-            }, index * 100);
-          });
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    // Observer tous les éléments avec la classe animate-on-scroll
-    const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
-    elementsToAnimate.forEach(element => {
-      this.observer.observe(element);
-    });
-
-    // Observer les éléments de la galerie pour des animations spéciales
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach((item, index) => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(30px)';
-      
-      const itemObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }, index * 50);
-            itemObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      itemObserver.observe(item);
-    });
-  }
-
-  setupLoadAnimations() {
-    // Animation du logo
-    const logo = document.querySelector('.logo img');
-    if (logo) {
-      logo.style.opacity = '0';
-      setTimeout(() => {
-        logo.style.opacity = '1';
-      }, 100);
-    }
-
-    // Animation du header
-    const headerElements = [
-      '.header__title',
-      '.header__subtitle', 
-      '.header__description'
-    ];
-
-    headerElements.forEach((selector, index) => {
-      const element = document.querySelector(selector);
-      if (element) {
-        element.style.opacity = '0';
-        setTimeout(() => {
-          element.style.opacity = '1';
-        }, 200 + (index * 200));
-      }
-    });
-
-    // Animation de la navigation
-    const navItems = document.querySelectorAll('.nav__menu li');
-    navItems.forEach((item, index) => {
-      item.style.opacity = '0';
-      setTimeout(() => {
-        item.style.opacity = '1';
-      }, 1000 + (index * 100));
-    });
-
-    // Animation des sections
-    const sections = document.querySelectorAll('.section-header');
-    sections.forEach((section, index) => {
-      section.style.opacity = '0';
-      setTimeout(() => {
-        section.style.opacity = '1';
-      }, 1500 + (index * 300));
-    });
-
-    // Animation des boutons CTA
-    const ctaButtons = document.querySelectorAll('.cta__actions .btn');
-    ctaButtons.forEach((btn, index) => {
-      btn.style.opacity = '0';
-      setTimeout(() => {
-        btn.style.opacity = '1';
-      }, 2000 + (index * 200));
-    });
-
-    // Animation du lien Instagram
-    const instagramLink = document.querySelector('.cta__instagram');
-    if (instagramLink) {
-      instagramLink.style.opacity = '0';
-      setTimeout(() => {
-        instagramLink.style.opacity = '1';
-      }, 2500);
-    }
-
-    // Animation des éléments de contact
-    const contactItems = document.querySelectorAll('.contact__item');
-    contactItems.forEach((item, index) => {
-      item.style.opacity = '0';
-      setTimeout(() => {
-        item.style.opacity = '1';
-      }, 3000 + (index * 200));
-    });
-
-    // Animation de la carte
-    const map = document.querySelector('.contact__map');
-    if (map) {
-      map.style.opacity = '0';
-      setTimeout(() => {
-        map.style.opacity = '1';
-      }, 4000);
-    }
-
-    // Animation du footer
-    const footer = document.querySelector('.footer');
-    if (footer) {
-      footer.style.opacity = '0';
-      setTimeout(() => {
-        footer.style.opacity = '1';
-      }, 4500);
-    }
-  }
-
-  setupHoverEffects() {
-    // Effets de hover pour les éléments interactifs
-    const interactiveElements = document.querySelectorAll('.btn, .nav__filter, .gallery-item');
-    
-    interactiveElements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
-        element.style.transform = 'translateY(-2px)';
-      });
-      
-      element.addEventListener('mouseleave', () => {
-        element.style.transform = 'translateY(0)';
-      });
-    });
   }
 
   setupProgressBar() {
@@ -953,21 +854,6 @@ class AnimationManager {
     });
   }
 
-  // Méthode pour animer un élément spécifique
-  animateElement(element, animationClass) {
-    element.classList.add(animationClass);
-    setTimeout(() => {
-      element.classList.remove(animationClass);
-    }, 800);
-  }
-
-  // Méthode pour réinitialiser les animations
-  resetAnimations() {
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
-    animatedElements.forEach(element => {
-      element.classList.remove('animate-in');
-    });
-  }
 }
 
 // Gestionnaire de la bulle d'information
