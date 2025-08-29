@@ -1,0 +1,68 @@
+{
+  "faq": {
+    "title": "Questions Fréquentes - Métallerie Forge Perraut",
+    "subtitle": "Trouvez rapidement les réponses à vos questions sur nos services de métallerie et fer forgé",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Combien coûte un escalier métallique sur mesure ?",
+        "answer": "Le prix d'un escalier métallique sur mesure varie selon plusieurs facteurs : la complexité du design, les matériaux choisis (fer forgé, acier, inox), la taille et le nombre de marches. Nos prix démarrent à partir de 3 500€ pour un escalier simple et peuvent aller jusqu'à 15 000€ pour des créations très élaborées. Nous proposons un devis gratuit et personnalisé pour chaque projet.",
+        "keywords": ["prix", "devis", "escalier", "métallique", "sur mesure"]
+      },
+      {
+        "id": "q2",
+        "question": "Quels sont vos délais de fabrication et d'installation ?",
+        "answer": "Nos délais varient selon la complexité du projet. Pour un escalier standard : 4-6 semaines de fabrication + 1-2 jours d'installation. Pour des créations complexes ou des garde-corps sur mesure : 6-8 semaines. Nous respectons toujours les délais annoncés et vous tenons informés de l'avancement de votre projet.",
+        "keywords": ["délais", "fabrication", "installation", "planning", "projet"]
+      },
+      {
+        "id": "q3",
+        "question": "Intervenez-vous dans toute la Bourgogne ?",
+        "answer": "Oui, nous intervenons dans toute la Saône-et-Loire (71) et les départements limitrophes. Notre zone d'intervention couvre un rayon de 50km autour de Cormatin, incluant Cluny, Tournus, Buxy, Chalon-sur-Saône, Mâcon et leurs environs. Pour les projets plus éloignés, nous étudions chaque demande au cas par cas.",
+        "keywords": ["zone", "intervention", "Bourgogne", "Saône-et-Loire", "Cormatin"]
+      },
+      {
+        "id": "q4",
+        "question": "Quelle est la différence entre fer forgé et acier ?",
+        "answer": "Le fer forgé est plus traditionnel et offre un aspect chaleureux avec des finitions patinées. Il est idéal pour les styles classiques et rustiques. L'acier est plus moderne, résistant et nécessite moins d'entretien. Il convient parfaitement aux intérieurs contemporains. Nous vous conseillons selon votre style et vos besoins.",
+        "keywords": ["fer forgé", "acier", "matériaux", "style", "entretien"]
+      },
+      {
+        "id": "q5",
+        "question": "Faites-vous la rénovation d'escaliers existants ?",
+        "answer": "Oui, nous proposons la rénovation complète d'escaliers existants : remplacement des marches, réparation de la structure, modernisation du design, ajout de garde-corps. Nous pouvons également adapter un escalier en bois existant en ajoutant des éléments métalliques pour un style mixte unique.",
+        "keywords": ["rénovation", "escalier", "existant", "réparation", "modernisation"]
+      },
+      {
+        "id": "q6",
+        "question": "Quelle est la durée de vie d'un escalier métallique ?",
+        "answer": "Un escalier métallique bien entretenu peut durer plus de 50 ans. La longévité dépend de la qualité des matériaux, de l'environnement (intérieur/extérieur) et de l'entretien régulier. Nous recommandons un entretien annuel pour préserver l'aspect et la solidité de votre escalier.",
+        "keywords": ["durée de vie", "durabilité", "entretien", "longévité", "qualité"]
+      },
+      {
+        "id": "q7",
+        "question": "Le devis est-il vraiment gratuit ?",
+        "answer": "Absolument ! Tous nos devis sont gratuits et sans engagement. Nous nous déplaçons gratuitement pour étudier votre projet, prendre les mesures et discuter de vos besoins. Le devis détaillé inclut le prix des matériaux, la main d'œuvre et le délai de réalisation.",
+        "keywords": ["devis", "gratuit", "sans engagement", "étude", "projet"]
+      },
+      {
+        "id": "q8",
+        "question": "Proposez-vous des garanties ?",
+        "answer": "Oui, nous offrons une garantie décennale sur la structure et les éléments porteurs, et une garantie de 2 ans sur la finition et les éléments décoratifs. Tous nos travaux sont assurés et nous sommes certifiés pour intervenir dans les logements collectifs et les ERP.",
+        "keywords": ["garantie", "décennale", "assurance", "certification", "sécurité"]
+      },
+      {
+        "id": "q9",
+        "question": "Pouvez-vous créer des designs personnalisés ?",
+        "answer": "Bien sûr ! Chaque projet est unique et nous créons des designs sur mesure selon vos envies. Nous pouvons reproduire des modèles existants, adapter des photos que vous nous montrez, ou créer des designs complètement originaux. Notre atelier dispose de tous les outils nécessaires pour réaliser vos idées.",
+        "keywords": ["design", "personnalisé", "sur mesure", "création", "original"]
+      },
+      {
+        "id": "q10",
+        "question": "Quels sont vos horaires de travail ?",
+        "answer": "Notre atelier est ouvert du lundi au vendredi de 8h à 12h et de 14h à 17h. Nous recevons sur rendez-vous pour des consultations et visites de chantier. Pour les urgences ou questions techniques, vous pouvez nous joindre par téléphone ou email, nous répondons sous 24h.",
+        "keywords": ["horaires", "atelier", "rendez-vous", "consultation", "urgence"]
+      }
+    ]
+  }
+}

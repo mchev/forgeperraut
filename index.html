@@ -453,10 +453,50 @@
                             </iframe>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section" aria-labelledby="faq-title" itemscope itemtype="https://schema.org/FAQPage">
+            <div class="container">
+                <div class="faq__content">
+                    <header class="section-header">
+                        <h2 id="faq-title" class="section-title" itemprop="name">Questions Fréquentes</h2>
+                        <p class="section-subtitle" itemprop="description">Trouvez rapidement les réponses à vos questions sur nos services.</p>
+                    </header>
+                    
+
+                    
+                    <!-- Barre de recherche FAQ -->
+                    <div class="faq__search">
+                        <div class="faq__search-wrapper">
+                            <input type="text" 
+                                   id="faq-search" 
+                                   class="faq__search-input" 
+                                   placeholder="Rechercher dans la FAQ..."
+                                   aria-label="Rechercher dans les questions fréquentes">
+                            <button type="button" class="faq__search-button" aria-label="Rechercher">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Liste des questions -->
+                    <div class="faq__list" id="faq-list">
+                        <!-- Les questions seront chargées dynamiquement depuis le JSON -->
+                    </div>
+                    
+                    <!-- Message si aucune question trouvée -->
+                    <div class="faq__empty" id="faq-empty" hidden>
+                        <p>Aucune question trouvée pour cette recherche.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -484,5 +524,6 @@
 
     <!-- Scripts -->
     <script src="assets/js/main.js" type="module" defer></script>
+    <script src="assets/js/faq.js" defer></script>
 </body>
 </html>
