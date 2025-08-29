@@ -194,7 +194,7 @@
   background-color: var(--color-primary);
 }
 
-/* ===== GALERIE ===== */
+/* ===== GALERIE OPTIMISÉE ET RESPONSIVE ===== */
 .gallery-section {
   padding: var(--spacing-2xl) 0;
   background-color: var(--color-gray-50);
@@ -203,12 +203,12 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
   margin-bottom: var(--spacing-2xl);
-  max-height: calc(3 * (300px + var(--spacing-md)));
-  overflow: hidden;
   position: relative;
+  /* Prévention des chevauchements */
+  grid-auto-rows: 1fr;
+  align-items: start;
 }
 
 .gallery-item {
@@ -216,49 +216,66 @@
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: var(--transition-normal);
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   aspect-ratio: 4/3;
+  will-change: transform, box-shadow;
+  /* Support pour les navigateurs plus anciens */
+  min-height: 250px;
 }
 
-.gallery-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+.gallery-item:hover,
+.gallery-item:focus-within {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.gallery-item:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .gallery-item__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-normal);
+  transition: transform var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  /* Fallback pour les navigateurs sans support object-fit */
+  background-color: var(--color-gray-100);
+  /* Prévention des chevauchements */
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
-.gallery-item:hover .gallery-item__image {
-  transform: scale(1.05);
+.gallery-item:hover .gallery-item__image,
+.gallery-item:focus-within .gallery-item__image {
+  transform: scale(1.08);
 }
 
 .gallery-item__overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(44, 62, 80, 0.8) 0%, rgba(52, 73, 94, 0.9) 100%);
+  inset: 0;
+  background: linear-gradient(135deg, rgba(44, 62, 80, 0.85) 0%, rgba(52, 73, 94, 0.95) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: var(--transition-normal);
+  transition: opacity var(--transition-normal) ease;
+  pointer-events: none;
 }
 
-.gallery-item:hover .gallery-item__overlay {
+.gallery-item:hover .gallery-item__overlay,
+.gallery-item:focus-within .gallery-item__overlay {
   opacity: 1;
 }
 
 .gallery-item__icon {
   color: var(--color-white);
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .gallery-item__info {
@@ -266,25 +283,34 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: var(--spacing-md);
   color: var(--color-white);
   font-size: var(--font-size-sm);
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
-  opacity: 0.9;
-  transition: var(--transition-fast);
+  opacity: 0.95;
+  transition: all var(--transition-fast) ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
-.gallery-item:hover .gallery-item__info {
+.gallery-item:hover .gallery-item__info,
+.gallery-item:focus-within .gallery-item__info {
   opacity: 1;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  padding-bottom: calc(var(--spacing-md) + 4px);
 }
 
 .gallery-item--placeholder {
   background: var(--color-gray-100);
   border: 2px dashed var(--color-gray-300);
   cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-500);
+  font-style: italic;
 }
 
 .gallery-item--placeholder:hover {
@@ -297,6 +323,97 @@
   display: block;
   text-transform: capitalize;
   letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Support pour les navigateurs sans support aspect-ratio */
+@supports not (aspect-ratio: 4/3) {
+  .gallery-item {
+    height: 250px;
+  }
+}
+
+/* Prévention des chevauchements sur tous les breakpoints */
+.gallery-item {
+  /* Assure que chaque item respecte sa grille */
+  grid-column: span 1;
+  grid-row: span 1;
+  /* Prévention des débordements */
+  overflow: hidden;
+  /* Taille minimale pour éviter la compression */
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Correction spécifique pour les écrans moyens */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .gallery-item {
+    min-height: 280px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .gallery-item {
+    min-height: 240px;
+  }
+}
+
+/* Règles critiques pour éviter le débordement du viewport */
+@media (max-width: 600px) {
+  .gallery {
+    /* Assure que la grille ne dépasse jamais le viewport */
+    max-width: 100vw;
+    padding: 0 var(--spacing-sm);
+    box-sizing: border-box;
+  }
+  
+  .gallery-item {
+    /* Force le respect du viewport */
+    max-width: calc(50vw - var(--spacing-sm));
+    max-height: calc(50vh - var(--spacing-sm));
+    /* Permet la compression sans aspect-ratio rigide */
+    aspect-ratio: auto;
+    height: auto;
+  }
+  
+  .gallery-item__image {
+    /* Assure que l'image respecte son conteneur */
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    max-width: 100vw;
+    padding: 0 var(--spacing-xs);
+    box-sizing: border-box;
+  }
+  
+  .gallery-item {
+    max-width: calc(50vw - var(--spacing-xs));
+    max-height: calc(40vh - var(--spacing-xs));
+    aspect-ratio: auto;
+    height: auto;
+  }
+}
+
+/* Amélioration de l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item,
+  .gallery-item__image,
+  .gallery-item__overlay,
+  .gallery-item__info {
+    transition: none;
+    transform: none;
+  }
+  
+  .gallery-item:hover .gallery-item__image {
+    transform: none;
+  }
 }
 
 .gallery__empty {
@@ -777,6 +894,39 @@
   }
 }
 
+/* ===== RESPONSIVE DESIGN OPTIMISÉ ===== */
+@media (max-width: 1200px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+  
+  .gallery-section {
+    padding: var(--spacing-xl) 0;
+  }
+}
+
 @media (max-width: 600px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
@@ -784,13 +934,16 @@
   }
   
   .gallery-item {
-    aspect-ratio: 1/1;
-    min-height: 180px;
+    aspect-ratio: 4/3;
+    min-height: 0;
+    max-height: calc(50vh - var(--spacing-sm));
+    width: 100%;
+    max-width: 100%;
   }
   
   .gallery-item__info {
     font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: var(--spacing-sm);
   }
   
   .gallery-item__category {
@@ -799,6 +952,37 @@
 }
 
 @media (max-width: 480px) {
+  .gallery-section {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+  
+  .gallery-item {
+    aspect-ratio: 4/3;
+    min-height: 0;
+    max-height: calc(40vh - var(--spacing-sm));
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .gallery-item__info {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-sm);
+  }
+  
+  .gallery__page-info {
+    font-size: var(--font-size-sm);
+  }
+  
+  .gallery__total-images {
+    display: none;
+  }
+  
+  /* Autres styles pour très petits écrans */
   .header {
     padding: var(--spacing-xl) 0 var(--spacing-md);
   }
@@ -818,24 +1002,6 @@
   
   .header__content {
     gap: var(--spacing-md);
-  }
-  
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
-  }
-  
-  .gallery-item {
-    aspect-ratio: 16/9;
-    min-height: 200px;
-  }
-  
-  .gallery__page-info {
-    font-size: var(--font-size-sm);
-  }
-  
-  .gallery__total-images {
-    display: none;
   }
   
   .cta__actions {

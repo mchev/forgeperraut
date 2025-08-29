@@ -541,3 +541,9 @@
     padding: 0 var(--spacing-2xl);
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+}
