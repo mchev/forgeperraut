@@ -65,7 +65,6 @@
   width: min(400px, 80vw); 
   display: block; 
   margin: 0 auto;
-  filter: brightness(0) invert(1);
 }
 
 .header__title {
